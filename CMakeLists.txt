@@ -12,5 +12,5 @@ include_directories(${LibNotify_INCLUDE_DIRS} ${GLIB_INCLUDE_DIRS} ${GDK-PIXBUF_
 set(LIBS ${LIBS} ${LibNotify_LIBRARIES} ${GLIB_LIBRARIES} ${GDK-PIXBUF_LIBRARIES} ${GTK2_LIBRARIES})
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(SOURCE_FILES main.cpp)
-add_executable(batmon_cmake ${SOURCE_FILES})
-target_link_libraries(batmon_cmake ${LIBS} -lnotify)
+add_executable(batmon ${SOURCE_FILES})
+target_link_libraries(batmon ${LIBS} -lnotify)
