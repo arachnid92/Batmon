@@ -20,46 +20,62 @@
 #include <iostream>
 #include <libnotify/notify.h>
 #include <fstream>
+#include <boost/program_options/option.hpp>
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/variables_map.hpp>
+#include <boost/program_options/parsers.hpp>
 
-using namespace std;
 
-static const string helptext =
-        "Batmon -- a simple command line battery monitor written in C++.\n\n"
-                "Usage: batmon [options]\n"
-                "Options:\n"
-                "\t-h, --help\tPrint this help text.\n"
-                "\t--version\tPrint program version and exit.\n"
-                "\t-p\t\tOnly print current battery percent.\n"
-                "\t\t\tIf there's no battery, prints -1\n"
-                "\t-t\t\tText mode, prints battery status (Charging, Discharging,\n"
-                "\t\t\tFull and Unavailable) followed by current battery percent.\n"
-                "\t\t\tThis is the default mode.\n"
-                "\t-i INTERVAL\tUpdate interval in seconds. Set to 0 to run once and exit.\n";
+namespace  pOpt = boost::program_options;
 
-int main ()
+int delay;  // polling interval
+int crit;   // critical battery level
+int low;    // low battery level
+int ccap;   // current batt capacity percent
+int pcap;   // previous batt capacity
+
+int main ( const int argc, const char *argv[] )
 {
 
-    int cap;
+    ccap = 0;
+    pcap = 0;
 
-    cout << helptext;
+    // parse options from command line
+    pOpt::options_description desc ( "Batmon, a lightweight battery monitor in C++. \n\nOptions" );
+    desc.add_options ()
+            ( "help,h", "Show this help message." )
+            ( "interval,i", pOpt::value < int > ( &delay )->default_value ( 1000 ),
+              "Polling interval in ms (default = 1000ms)" )
+            ( "low,l", pOpt::value < int > ( &low )->default_value ( 15 ),
+              "Low battery threshold in percent (default = 15%)" )
+            ( "critical,c", pOpt::value < int > ( &crit )->default_value ( 5 ),
+              "Critical battery thresholf in percent (default = 5%)" );
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
-    while ( false )
+    pOpt::variables_map vm;
+    pOpt::store ( pOpt::parse_command_line ( argc, argv, desc ), vm );
+    pOpt::notify ( vm );
+
+    if ( vm.count ( "help" ))
     {
-        ifstream sfile ( "/sys/class/power_supply/BAT0/capacity" );
-        sfile >> cap;
-        string s_cap ( "Battery: " + to_string ( cap ) + "%" );
-
-        notify_init ( "Hello world!" );
-        NotifyNotification *Hello;
-        Hello = notify_notification_new ( "Hello world", s_cap.c_str (), "face-kiss" );
-        notify_notification_show ( Hello, NULL );
-        g_object_unref (G_OBJECT( Hello ));
-        notify_uninit ();
-
-        sfile.close ();
-        sleep ( 1 );
+        std::cout << desc << "\n";
+        return 1;
     }
-#pragma clang diagnostic pop
+
+    std::ifstream capfile ( "/sys/class/power_supply/BAT0/capacity" );
+    std::ifstream statfile ( "/sys/class/power_supply/BAT0/status" );
+
+
+    capfile >> ccap;
+    std::string s_cap ( "Battery: " + std::to_string ( ccap ) + "%" );
+
+    notify_init ( "Hello world!" );
+    NotifyNotification *Hello;
+    Hello = notify_notification_new ( "Hello world", s_cap.c_str (), "face-kiss" );
+    notify_notification_show ( Hello, NULL );
+    g_object_unref (G_OBJECT( Hello ));
+    notify_uninit ();
+
+    capfile.close ();
+
+    return 1;
 }
