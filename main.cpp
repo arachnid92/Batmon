@@ -24,6 +24,10 @@
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/variables_map.hpp>
 #include <boost/program_options/parsers.hpp>
+#include <boost/filesystem.hpp>
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
 
 
 namespace  pOpt = boost::program_options;
@@ -32,20 +36,19 @@ int delay;  // polling interval
 int crit;   // critical battery level
 int low;    // low battery level
 int ccap;   // current batt capacity percent
-int pcap;   // previous batt capacity
+std::string cstat; // current batt status
 
 int main ( const int argc, const char *argv[] )
 {
 
     ccap = 0;
-    pcap = 0;
 
     // parse options from command line
     pOpt::options_description desc ( "Batmon, a lightweight battery monitor in C++. \n\nOptions" );
     desc.add_options ()
             ( "help,h", "Show this help message." )
-            ( "interval,i", pOpt::value < int > ( &delay )->default_value ( 1000 ),
-              "Polling interval in ms (default = 1000ms)" )
+            ( "interval,i", pOpt::value < int > ( &delay )->default_value ( 1 ),
+              "Polling interval in s (default = 1s)" )
             ( "low,l", pOpt::value < int > ( &low )->default_value ( 15 ),
               "Low battery threshold in percent (default = 15%)" )
             ( "critical,c", pOpt::value < int > ( &crit )->default_value ( 5 ),
@@ -55,27 +58,45 @@ int main ( const int argc, const char *argv[] )
     pOpt::store ( pOpt::parse_command_line ( argc, argv, desc ), vm );
     pOpt::notify ( vm );
 
-    if ( vm.count ( "help" ))
+    if ( vm.count ( "help" ) )
     {
         std::cout << desc << "\n";
         return 1;
     }
 
-    std::ifstream capfile ( "/sys/class/power_supply/BAT0/capacity" );
-    std::ifstream statfile ( "/sys/class/power_supply/BAT0/status" );
+    while ( true )
+    {
+        if ( !boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) )
+        {
+            sleep ( ( unsigned int ) delay );
+            continue;
+        }
+
+        std::ifstream capfile ( "/sys/class/power_supply/BAT0/capacity" );
+        std::ifstream statfile ( "/sys/class/power_supply/BAT0/status" );
+        capfile >> ccap;
+        statfile >> cstat;
+
+        // notify every 10%, but not if battery charge is not changing 
+
+        statfile.close ();
+        capfile.close ();
+        sleep ( delay );
+
+    }
 
 
-    capfile >> ccap;
     std::string s_cap ( "Battery: " + std::to_string ( ccap ) + "%" );
 
     notify_init ( "Hello world!" );
     NotifyNotification *Hello;
     Hello = notify_notification_new ( "Hello world", s_cap.c_str (), "face-kiss" );
     notify_notification_show ( Hello, NULL );
-    g_object_unref (G_OBJECT( Hello ));
+    g_object_unref ( G_OBJECT( Hello ) );
     notify_uninit ();
 
-    capfile.close ();
 
     return 1;
 }
+
+#pragma clang diagnostic pop
