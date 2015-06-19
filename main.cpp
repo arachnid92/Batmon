@@ -5,7 +5,6 @@
  *
  *    Description:  Core functionality of Batmon
  *
- *        Version:  0.1alpha
  *        Created:  11/06/17 22:00:00
  *       Revision:  none
  *       Compiler:  g++
@@ -26,9 +25,16 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/filesystem.hpp>
 
+#define BATT_FULL   "battery"
+#define BATT_LOW    "battery-caution"
+#define BATT_CRIT   "battery-low"
+
+#define VERSION     "0.1.1alpha"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 
+void checkBattery ();
 
 namespace  pOpt = boost::program_options;
 
@@ -36,15 +42,22 @@ int delay;  // polling interval
 int crit;   // critical battery level
 int low;    // low battery level
 int ccap;   // current batt capacity percent
+int pcap;   // previous batt capacity percent
 std::string cstat; // current batt status
+
+bool debug;
 
 int main ( const int argc, const char *argv[] )
 {
 
     ccap = 0;
+    pcap = 0;
+
+    std::string odes ( "Batmon, a lightweight battery monitor in C++. Version " );
+    odes.append ( VERSION );
 
     // parse options from command line
-    pOpt::options_description desc ( "Batmon, a lightweight battery monitor in C++. \n\nOptions" );
+    pOpt::options_description desc ( odes + "\n\nOptions" );
     desc.add_options ()
             ( "help,h", "Show this help message." )
             ( "interval,i", pOpt::value < int > ( &delay )->default_value ( 1 ),
@@ -52,7 +65,8 @@ int main ( const int argc, const char *argv[] )
             ( "low,l", pOpt::value < int > ( &low )->default_value ( 15 ),
               "Low battery threshold in percent (default = 15%)" )
             ( "critical,c", pOpt::value < int > ( &crit )->default_value ( 5 ),
-              "Critical battery thresholf in percent (default = 5%)" );
+              "Critical battery thresholf in percent (default = 5%)" )
+            ( "debug,D", "Debug mode." );
 
     pOpt::variables_map vm;
     pOpt::store ( pOpt::parse_command_line ( argc, argv, desc ), vm );
@@ -64,39 +78,80 @@ int main ( const int argc, const char *argv[] )
         return 1;
     }
 
+    if ( vm.count ( "debug" ) )
+        debug = true;
+    else
+        debug = false;
+
+    if ( debug )
+        std::cerr << "Debug mode.\nPolling interval:\t" + std::to_string ( delay ) + "\n";
+
+
     while ( true )
     {
-        if ( !boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) )
+        checkBattery ();
+
+    }
+}
+
+void checkBattery ()
+{
+    if ( !boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) )
+    {
+
+        if ( debug )
+            std::cerr << "No battery.\n";
+
+        sleep ( delay );
+        return;
+    }
+
+    if ( debug )
+        std::cerr << "Polling.\n";
+
+    std::ifstream capfile ( "/sys/class/power_supply/BAT0/capacity" );
+    std::ifstream statfile ( "/sys/class/power_supply/BAT0/status" );
+    capfile >> ccap;
+    statfile >> cstat;
+
+    if ( debug )
+        std::cerr << "Battery: " + std::to_string ( ccap ) + "%\n";
+
+    if ( ccap % 10 == 0 )
+    {
+        // notify every 10%, but not if battery charge is not changing
+
+        if ( ccap == pcap )
         {
-            sleep ( ( unsigned int ) delay );
-            continue;
+            if ( debug )
+                std::cerr << "No change.\n";
+
+            statfile.close ();
+            capfile.close ();
+            sleep ( delay );
+            return;
         }
 
-        std::ifstream capfile ( "/sys/class/power_supply/BAT0/capacity" );
-        std::ifstream statfile ( "/sys/class/power_supply/BAT0/status" );
-        capfile >> ccap;
-        statfile >> cstat;
+        if ( debug )
+            std::cerr << "Change, notifying.\n";
 
-        // notify every 10%, but not if battery charge is not changing 
+        std::string battext ( cstat + " " + std::to_string ( ccap ) + "%" );
 
-        statfile.close ();
-        capfile.close ();
-        sleep ( delay );
+        // Notification time
+        notify_init ( "Battery" );
+        NotifyNotification *Batt;
+        Batt = notify_notification_new ( "Battery", battext.c_str (), BATT_FULL );
+        notify_notification_show ( Batt, NULL );
+        g_object_unref ( G_OBJECT( Batt ) );
+        notify_uninit ();
 
     }
 
-
-    std::string s_cap ( "Battery: " + std::to_string ( ccap ) + "%" );
-
-    notify_init ( "Hello world!" );
-    NotifyNotification *Hello;
-    Hello = notify_notification_new ( "Hello world", s_cap.c_str (), "face-kiss" );
-    notify_notification_show ( Hello, NULL );
-    g_object_unref ( G_OBJECT( Hello ) );
-    notify_uninit ();
-
-
-    return 1;
+    statfile.close ();
+    capfile.close ();
+    sleep ( delay );
+    pcap = ccap;
+    return;
 }
 
 #pragma clang diagnostic pop
