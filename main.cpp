@@ -25,7 +25,7 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/filesystem.hpp>
 
-#define BATT_FULL   "battery"
+#define BATT_FULL   "file:///home/arachnid92/workspace/batmon_cmake/icons/light/full.png"
 #define BATT_LOW    "battery-caution"
 #define BATT_CRIT   "battery-low"
 
@@ -44,6 +44,7 @@ int low;    // low battery level
 int ccap;   // current batt capacity percent
 int pcap;   // previous batt capacity percent
 std::string cstat; // current batt status
+std::string pstat; // previous batt status
 
 bool debug;
 
@@ -52,6 +53,8 @@ int main ( const int argc, const char *argv[] )
 
     ccap = 0;
     pcap = 0;
+    cstat = "";
+    pstat = "";
 
     std::string odes ( "Batmon, a lightweight battery monitor in C++. Version " );
     odes.append ( VERSION );
@@ -119,9 +122,9 @@ void checkBattery ()
 
     if ( ccap % 10 == 0 )
     {
-        // notify every 10%, but not if battery charge is not changing
+        // notify every 10%, but not if battery charge or state is not changing
 
-        if ( ccap == pcap )
+        if ( ccap == pcap && cstat == pstat )
         {
             if ( debug )
                 std::cerr << "No change.\n";
@@ -151,6 +154,7 @@ void checkBattery ()
     capfile.close ();
     sleep ( delay );
     pcap = ccap;
+    pstat = cstat;
     return;
 }
 
