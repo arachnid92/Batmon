@@ -12,8 +12,8 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Tiny bit of refactoring and comments.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/batmon" afterPath="$PROJECT_DIR$/bin/batmon" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="batmon_cmake.iws" />
@@ -48,8 +48,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.15151516">
-              <caret line="94" column="22" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.46262625">
+              <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
               <folding>
                 <element signature="e#508#527#0" expanded="true" />
               </folding>
@@ -60,6 +60,11 @@
     </leaf>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Manuel Olguin" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -252,7 +257,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436977788031</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Tiny bit of refactoring and comments.">
+      <created>1436978249566</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1436978249566</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -298,7 +309,8 @@
     <MESSAGE value="Version 0.1.1alpha: &#10;Polls battery, notifies at every 10%." />
     <MESSAGE value="Begun work on adding icons." />
     <MESSAGE value="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;" />
+    <MESSAGE value="Tiny bit of refactoring and comments." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tiny bit of refactoring and comments." />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -459,8 +471,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15151516">
-          <caret line="94" column="22" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.46262625">
+          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding>
             <element signature="e#508#527#0" expanded="true" />
           </folding>
