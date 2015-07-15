@@ -12,9 +12,7 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Begun work on adding icons.">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/batmon" afterPath="$PROJECT_DIR$/bin/batmon" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -50,8 +48,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.93333334">
-              <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.15151516">
+              <caret line="94" column="22" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
               <folding>
                 <element signature="e#508#527#0" expanded="true" />
               </folding>
@@ -248,7 +246,13 @@
       <option name="project" value="LOCAL" />
       <updated>1436474184880</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;">
+      <created>1436977788031</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1436977788031</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -293,7 +297,8 @@
     <MESSAGE value="Check that battery file exists, read values." />
     <MESSAGE value="Version 0.1.1alpha: &#10;Polls battery, notifies at every 10%." />
     <MESSAGE value="Begun work on adding icons." />
-    <option name="LAST_COMMIT_MESSAGE" value="Begun work on adding icons." />
+    <MESSAGE value="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -454,8 +459,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.93333334">
-          <caret line="33" column="26" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.15151516">
+          <caret line="94" column="22" selection-start-line="94" selection-start-column="22" selection-end-line="94" selection-end-column="22" />
           <folding>
             <element signature="e#508#527#0" expanded="true" />
           </folding>

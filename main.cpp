@@ -87,37 +87,38 @@ int main ( const int argc, const char *argv[] )
     }
 
     if ( vm.count ( "debug" ) )
-        debug = true;
-    else
-        debug = false;
-
-    if ( debug )
     {
+        debug = true;
         std::cerr << "\x1b[01mDebug mode.\nPolling interval:\t" + std::to_string ( delay ) + "\x1b[00m\n";
     }
+    else
+        debug = false;
 
 
     while ( true )
     {
         checkBattery ();
+        sleep ( delay );
     }
 }
 
 void checkBattery ()
 {
+
+    // check if battery is present
     if ( !boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) )
     {
 
         if ( debug )
             std::cerr << "\x1b[01mNo battery.\x1b[00m\n";
 
-        sleep ( delay );
         return;
     }
 
     if ( debug )
         std::cerr << "Polling.\n";
 
+    // read information from battery capacity and status files
     std::ifstream capfile ( "/sys/class/power_supply/BAT0/capacity" );
     std::ifstream statfile ( "/sys/class/power_supply/BAT0/status" );
     capfile >> ccap;
@@ -134,7 +135,6 @@ void checkBattery ()
 
         statfile.close ();
         capfile.close ();
-        sleep ( delay );
         return;
     }
 
@@ -195,7 +195,8 @@ void checkBattery ()
 
     statfile.close ();
     capfile.close ();
-    sleep ( delay );
+
+    // store values for comparing next time we poll
     pcap = ccap;
     pstat = cstat;
     return;
