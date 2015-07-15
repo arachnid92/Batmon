@@ -67,14 +67,14 @@ int main ( const int argc, const char *argv[] )
     desc.add_options ()
             ( "help,h", "Show this help message." )
             ( "interval,i", pOpt::value < int > ( &delay )->default_value ( 1 ),
-              "Polling interval in s (default = 1s)" )
+              "Polling interval in s (default = 1s)." )
             ( "delta,d", pOpt::value < int > ( &delta )->default_value ( 10 ),
-              "Minimum change in battery percent before notifying (Default = 10)" )
+              "Minimum change in battery percent before notifying (Default = 10)." )
             ( "low,l", pOpt::value < int > ( &low )->default_value ( 15 ),
-              "Low battery threshold in percent (default = 15%)" )
+              "Low battery threshold in percent (default = 15%)." )
             ( "critical,c", pOpt::value < int > ( &crit )->default_value ( 5 ),
-              "Critical battery thresholf in percent (default = 5%)" )
-            ( "debug", "Debug mode." );
+              "Critical battery threshold in percent (default = 5%)." )
+            ( "debug", "Print debug comments to STDERR." );
 
     pOpt::variables_map vm;
     pOpt::store ( pOpt::parse_command_line ( argc, argv, desc ), vm );
