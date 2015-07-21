@@ -157,7 +157,7 @@ void checkBattery ()
     }
 
     // notify low
-    if ( ccap == low )
+    if ( ccap == low && cstat != "Charging" )
     {
 
         if ( debug )
@@ -175,7 +175,7 @@ void checkBattery ()
 
     }
         // notify critical
-    else if ( ccap == crit )
+    else if ( ccap == crit && cstat != "Charging" )
     {
 
         if ( debug )
@@ -202,8 +202,10 @@ void checkBattery ()
         std::string battext ( cstat + " " + std::to_string ( ccap ) + "%" );
         const char *icon;
 
-        //change icon according to charge level
-        if ( ccap >= 75 )
+        //change icon according to charge level or if charging
+        if ( cstat == "Charging" || cstat == "Full" )
+            icon = BATT_CHAR;
+        else if ( ccap >= 75 )
             icon = BATT_FULL;
         else
             icon = BATT_HIGH;
