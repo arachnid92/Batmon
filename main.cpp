@@ -50,6 +50,7 @@ std::string cstat; // current batt status
 std::string pstat; // previous batt status
 
 bool debug;
+bool bat;
 
 int main ( const int argc, const char *argv[] )
 {
@@ -95,6 +96,8 @@ int main ( const int argc, const char *argv[] )
         debug = false;
 
 
+    bat = true;
+
     while ( true )
     {
         checkBattery ();
@@ -112,8 +115,23 @@ void checkBattery ()
         if ( debug )
             std::cerr << "\x1b[01mNo battery.\x1b[00m\n";
 
+        if ( bat )
+            // if there previously was a battery, notify that it has been removed
+        {
+            notify_init ( "batmon" );
+            NotifyNotification *Batt;
+            Batt = notify_notification_new ( "No Battery", "No battery present.", BATT_CRIT );
+            notify_notification_show ( Batt, NULL );
+            g_object_unref ( G_OBJECT( Batt ) );
+            notify_uninit ();
+        }
+
+
+        bat = false;
         return;
     }
+
+    bat = true;
 
     if ( debug )
         std::cerr << "Polling.\n";
@@ -182,11 +200,18 @@ void checkBattery ()
             std::cerr << "\x1b[01mChange, notifying.\x1b[00m\n";
 
         std::string battext ( cstat + " " + std::to_string ( ccap ) + "%" );
+        const char *icon;
+
+        //change icon according to charge level
+        if ( ccap >= 75 )
+            icon = BATT_FULL;
+        else
+            icon = BATT_HIGH;
 
         // Notification time
         notify_init ( "batmon" );
         NotifyNotification *Batt;
-        Batt = notify_notification_new ( "Battery", battext.c_str (), BATT_FULL );
+        Batt = notify_notification_new ( "Battery", battext.c_str (), icon );
         notify_notification_show ( Batt, NULL );
         g_object_unref ( G_OBJECT( Batt ) );
         notify_uninit ();
