@@ -32,8 +32,6 @@
 
 #define VERSION     "0.5beta1"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
 
 void checkBattery ();
 
@@ -98,17 +96,16 @@ int main ( const int argc, const char *argv[] )
 
 
     bat = true;
-    if ( vm.count ( "run-once" ) )
-        cont = false;
-    else
-        cont = true;
 
+    cont = !vm.count ( "run-once" );
 
     do
     {
         checkBattery ();
-        sleep ( delay );
+        sleep ( ( unsigned int ) delay );
     } while ( cont );
+
+    return 0;
 }
 
 void checkBattery ()
@@ -235,5 +232,3 @@ void checkBattery ()
     return;
 
 }
-
-#pragma clang diagnostic pop
