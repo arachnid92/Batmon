@@ -1,4 +1,5 @@
-# Batmon, a lightweight battery monitor in C++.
+# Batmon
+### A lightweight battery monitor in C++.
 
 by Manuel Olguin (a.k.a. Arachnid92)
 

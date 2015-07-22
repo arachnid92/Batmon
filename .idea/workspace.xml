@@ -12,7 +12,7 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Dark icons.">
+    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Readme!">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -60,8 +60,8 @@
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6895075">
-              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.029978586">
+              <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -329,7 +329,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437607235549</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Readme!">
+      <created>1437608645442</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1437608645442</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -381,7 +387,8 @@
     <MESSAGE value="Single poll mode." />
     <MESSAGE value="Misc. fixes." />
     <MESSAGE value="Dark icons." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dark icons." />
+    <MESSAGE value="Readme!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Readme!" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -625,8 +632,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6895075">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.029978586">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
           <folding />
         </state>
       </provider>
