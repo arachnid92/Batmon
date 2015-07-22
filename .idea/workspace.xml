@@ -12,7 +12,7 @@
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Implemented notification when battery is removed, different icons for different battery levels.">
+    <list default="true" id="1e5cf0ce-e05f-46ea-8c13-dca3674a3482" name="Default" comment="Charging notifications!">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/batmon" afterPath="$PROJECT_DIR$/bin/batmon" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -49,10 +49,10 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54747474">
-              <caret line="205" column="52" selection-start-line="205" selection-start-column="52" selection-end-line="205" selection-end-column="52" />
+            <state vertical-scroll-proportion="0.14141414">
+              <caret line="32" column="29" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
               <folding>
-                <element signature="e#508#527#0" expanded="true" />
+                <element signature="e#483#502#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -282,7 +282,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437520469159</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Charging notifications!">
+      <created>1437521114125</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1437521114125</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -330,7 +336,8 @@
     <MESSAGE value="Hardcoded icons in /usr/share/batmon.&#10;Implemented notification at critical and low battery levels.&#10;User can now define a custom delta% for notifications.&#10;Begun implementing different icons for different charge levels.&#10;" />
     <MESSAGE value="Tiny bit of refactoring and comments." />
     <MESSAGE value="Implemented notification when battery is removed, different icons for different battery levels." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented notification when battery is removed, different icons for different battery levels." />
+    <MESSAGE value="Charging notifications!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Charging notifications!" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -351,7 +358,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -369,7 +376,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -387,7 +394,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -405,7 +412,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -423,7 +430,25 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -441,7 +466,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -459,7 +484,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -509,10 +534,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54747474">
-          <caret line="205" column="52" selection-start-line="205" selection-start-column="52" selection-end-line="205" selection-end-column="52" />
+        <state vertical-scroll-proportion="0.14141414">
+          <caret line="32" column="29" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
           <folding>
-            <element signature="e#508#527#0" expanded="true" />
+            <element signature="e#483#502#0" expanded="true" />
           </folding>
         </state>
       </provider>

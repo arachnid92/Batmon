@@ -6,7 +6,6 @@
  *    Description:  Core functionality of Batmon
  *
  *        Created:  11/06/17 22:00:00
- *       Revision:  none
  *       Compiler:  g++
  *
  *         Author:  Manuel Olguin, molguin@dcc.uchile.cl
@@ -31,7 +30,7 @@
 #define BATT_CRIT   "/usr/share/batmon/icons/light/empty.png"
 #define BATT_CHAR   "/usr/share/batmon/icons/light/charging.png"
 
-#define VERSION     "0.1.3alpha"
+#define VERSION     "0.5beta1"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
@@ -51,6 +50,7 @@ std::string pstat; // previous batt status
 
 bool debug;
 bool bat;
+bool cont; // continuous mode or poll once mode
 
 int main ( const int argc, const char *argv[] )
 {
@@ -75,6 +75,7 @@ int main ( const int argc, const char *argv[] )
               "Low battery threshold in percent (default = 15%)." )
             ( "critical,c", pOpt::value < int > ( &crit )->default_value ( 5 ),
               "Critical battery threshold in percent (default = 5%)." )
+            ( "run-once,r", "Only poll battery state once and exit." )
             ( "debug", "Print debug comments to STDERR." );
 
     pOpt::variables_map vm;
@@ -97,12 +98,17 @@ int main ( const int argc, const char *argv[] )
 
 
     bat = true;
+    if ( vm.count ( "run-once" ) )
+        cont = false;
+    else
+        cont = true;
 
-    while ( true )
+
+    do
     {
         checkBattery ();
         sleep ( delay );
-    }
+    } while ( cont );
 }
 
 void checkBattery ()
