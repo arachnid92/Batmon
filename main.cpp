@@ -24,16 +24,10 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/filesystem.hpp>
 
-#define BATT_FULL   "/usr/share/batmon/icons/light/full.png"
-#define BATT_HIGH   "/usr/share/batmon/icons/light/high.png"
-#define BATT_LOW    "/usr/share/batmon/icons/light/low.png"
-#define BATT_CRIT   "/usr/share/batmon/icons/light/empty.png"
-#define BATT_CHAR   "/usr/share/batmon/icons/light/charging.png"
-
 #define VERSION     "0.5beta1"
 
 
-void checkBattery ();
+void checkBattery (); // poll function
 
 namespace  pOpt = boost::program_options;
 
@@ -49,6 +43,14 @@ std::string pstat; // previous batt status
 bool debug;
 bool bat;
 bool cont; // continuous mode or poll once mode
+
+// icon constants
+const char *BATT_FULL;
+const char *BATT_HIGH;
+const char *BATT_LOW;
+const char *BATT_CRIT;
+const char *BATT_CHAR;
+
 
 int main ( const int argc, const char *argv[] )
 {
@@ -74,6 +76,7 @@ int main ( const int argc, const char *argv[] )
             ( "critical,c", pOpt::value < int > ( &crit )->default_value ( 5 ),
               "Critical battery threshold in percent (default = 5%)." )
             ( "run-once,r", "Only poll battery state once and exit." )
+            ( "dark,k", "Use dark icons instead of the default light ones." )
             ( "debug", "Print debug comments to STDERR." );
 
     pOpt::variables_map vm;
@@ -84,6 +87,23 @@ int main ( const int argc, const char *argv[] )
     {
         std::cout << desc << "\n";
         return 1;
+    }
+
+    if ( vm.count ( "dark" ) )
+    {
+        BATT_FULL = "/usr/share/batmon/icons/dark/full.png";
+        BATT_HIGH = "/usr/share/batmon/icons/dark/high.png";
+        BATT_LOW  = "/usr/share/batmon/icons/dark/low.png";
+        BATT_CRIT = "/usr/share/batmon/icons/dark/empty.png";
+        BATT_CHAR = "/usr/share/batmon/icons/dark/charging.png";
+    }
+    else
+    {
+        BATT_FULL = "/usr/share/batmon/icons/light/full.png";
+        BATT_HIGH = "/usr/share/batmon/icons/light/high.png";
+        BATT_LOW  = "/usr/share/batmon/icons/light/low.png";
+        BATT_CRIT = "/usr/share/batmon/icons/light/empty.png";
+        BATT_CHAR = "/usr/share/batmon/icons/light/charging.png";
     }
 
     if ( vm.count ( "debug" ) )
