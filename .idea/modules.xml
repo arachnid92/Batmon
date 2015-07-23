@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/batmon_cmake.iml" filepath="$PROJECT_DIR$/.idea/batmon_cmake.iml" />
+      <module fileurl="file://$USER_HOME$/workspace/battmon_cmake/.idea/batmon_cmake.iml" filepath="$USER_HOME$/workspace/battmon_cmake/.idea/batmon_cmake.iml" />
     </modules>
   </component>
 </project>
