@@ -1,9 +1,9 @@
 /*
  * =====================================================================================
  *
- *       Filename:  batmon_cmake/main.cpp
+ *       Filename:  battmon_cmake/battmon.cpp
  *
- *    Description:  Core functionality of Batmon
+ *    Description:  Core functionality of battmon
  *
  *        Created:  11/06/17 22:00:00
  *       Compiler:  g++
@@ -60,7 +60,7 @@ int main ( const int argc, const char *argv[] )
     cstat = "";
     pstat = "";
 
-    std::string odes ( "Batmon, a lightweight battery monitor in C++. Version " );
+    std::string odes ( "battmon, a lightweight battery monitor in C++. Version " );
     odes.append ( VERSION );
 
     // parse options from command line
@@ -91,19 +91,19 @@ int main ( const int argc, const char *argv[] )
 
     if ( vm.count ( "dark" ) )
     {
-        BATT_FULL = "/usr/share/batmon/icons/dark/full.png";
-        BATT_HIGH = "/usr/share/batmon/icons/dark/high.png";
-        BATT_LOW  = "/usr/share/batmon/icons/dark/low.png";
-        BATT_CRIT = "/usr/share/batmon/icons/dark/empty.png";
-        BATT_CHAR = "/usr/share/batmon/icons/dark/charging.png";
+        BATT_FULL = "/usr/share/battmon/icons/dark/full.png";
+        BATT_HIGH = "/usr/share/battmon/icons/dark/high.png";
+        BATT_LOW  = "/usr/share/battmon/icons/dark/low.png";
+        BATT_CRIT = "/usr/share/battmon/icons/dark/empty.png";
+        BATT_CHAR = "/usr/share/battmon/icons/dark/charging.png";
     }
     else
     {
-        BATT_FULL = "/usr/share/batmon/icons/light/full.png";
-        BATT_HIGH = "/usr/share/batmon/icons/light/high.png";
-        BATT_LOW  = "/usr/share/batmon/icons/light/low.png";
-        BATT_CRIT = "/usr/share/batmon/icons/light/empty.png";
-        BATT_CHAR = "/usr/share/batmon/icons/light/charging.png";
+        BATT_FULL = "/usr/share/battmon/icons/light/full.png";
+        BATT_HIGH = "/usr/share/battmon/icons/light/high.png";
+        BATT_LOW  = "/usr/share/battmon/icons/light/low.png";
+        BATT_CRIT = "/usr/share/battmon/icons/light/empty.png";
+        BATT_CHAR = "/usr/share/battmon/icons/light/charging.png";
     }
 
     if ( vm.count ( "debug" ) )
@@ -141,7 +141,7 @@ void checkBattery ()
         if ( bat )
             // if there previously was a battery, notify that it has been removed
         {
-            notify_init ( "batmon" );
+            notify_init ( "battmon" );
             NotifyNotification *Batt;
             Batt = notify_notification_new ( "No Battery", "No battery present.", BATT_CRIT );
             notify_notification_show ( Batt, NULL );
@@ -189,7 +189,7 @@ void checkBattery ()
         std::string battext ( cstat + " " + std::to_string ( ccap ) + "%" );
 
         // Notification time
-        notify_init ( "batmon" );
+        notify_init ( "battmon" );
         NotifyNotification *Batt;
         Batt = notify_notification_new ( "Low Battery", battext.c_str (), BATT_LOW );
         notify_notification_show ( Batt, NULL );
@@ -207,7 +207,7 @@ void checkBattery ()
         std::string battext ( cstat + " " + std::to_string ( ccap ) + "%" );
 
         // Notification time
-        notify_init ( "batmon" );
+        notify_init ( "battmon" );
         NotifyNotification *Batt;
         Batt = notify_notification_new ( "Critical Battery", battext.c_str (), BATT_CRIT );
         notify_notification_show ( Batt, NULL );
@@ -234,7 +234,7 @@ void checkBattery ()
             icon = BATT_HIGH;
 
         // Notification time
-        notify_init ( "batmon" );
+        notify_init ( "battmon" );
         NotifyNotification *Batt;
         Batt = notify_notification_new ( "Battery", battext.c_str (), icon );
         notify_notification_show ( Batt, NULL );

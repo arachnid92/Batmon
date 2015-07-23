@@ -36,22 +36,22 @@ This software is released under a GNU GPL v2 License.
 
 #### Manual Install:
 ```
-$git clone git@github.com:arachnid92/Batmon.git
-$cd Batmon
+$git clone git@github.com:arachnid92/battmon.git
+$cd battmon
 $cmake ./
 $sudo make install
 ``` 
 ### Arch Linux:
-An AUR package exists at https://aur4.archlinux.org/packages/batmon/:
+An AUR package exists at https://aur4.archlinux.org/packages/battmon/:
 ```
-$git clone https://aur4.archlinux.org/batmon.git/
-$cd batmon
+$git clone https://aur4.archlinux.org/battmon.git/
+$cd battmon
 $makepkg
-$sudo pacman -U <batmon_package>.tar.gz
+$sudo pacman -U <battmon_package>.tar.gz
 ```
 Or if you're lazy like me and like to use Yaourt:
 ```
-$yaourt -S batmon
+$yaourt -S battmon
 ```
 
 ## Basic Usage:
@@ -60,5 +60,5 @@ For example, to run the program with a a polling rate of 2 seconds, notifying ev
 critical at 3% and using dark icons:
 
 ```
-batmon --interval 2 --delta 3 --low 10 --critical 3 --dark
+battmon --interval 2 --delta 3 --low 10 --critical 3 --dark
 ```
