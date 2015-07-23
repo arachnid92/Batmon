@@ -37,9 +37,22 @@ This software is released under a GNU GPL v2 License.
 #### Manual Install:
 ```
 $git clone git@github.com:arachnid92/Batmon.git
+$cd Batmon
 $cmake ./
 $sudo make install
 ``` 
+### Arch Linux:
+An AUR package exists at https://aur4.archlinux.org/packages/batmon/:
+```
+$git clone https://aur4.archlinux.org/batmon.git/
+$cd batmon
+$makepkg
+$sudo pacman -U <batmon_package>.tar.gz
+```
+Or if you're lazy like me and like to use Yaourt:
+```
+$yaourt -S batmon
+```
 
 ## Basic Usage:
 
