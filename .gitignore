@@ -27,6 +27,9 @@
 *.out
 *.app
 
+# Vim temp files
+*.swp
+
 #CMake
 CMakeCache.txt
 CMakeFiles
