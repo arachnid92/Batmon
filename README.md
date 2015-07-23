@@ -24,6 +24,22 @@ http://www.flaticon.com/packs/icon-works/3
 
 This software is released under a GNU GPL v2 License.
 
+## Installation:
+
+### Dependencies:
+- GDK Pixbuf
+- LibNotify
+- GLIB
+- GTK2
+- Boost
+
+#### Manual Install:
+```
+$git clone git@github.com:arachnid92/Batmon.git
+$cmake ./
+$sudo make install
+``` 
+
 ## Basic Usage:
 
 For example, to run the program with a a polling rate of 2 seconds, notifying every 3%, low battery level set at 10%,

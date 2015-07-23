@@ -15,3 +15,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 set(SOURCE_FILES batmon.cpp)
 add_executable(batmon ${SOURCE_FILES})
 target_link_libraries(batmon ${LIBS} -lnotify -lboost_system)
+
+install(TARGETS batmon DESTINATION /usr/bin)
+install(DIRECTORY icons DESTINATION /usr/share/batmon)
