@@ -27,6 +27,7 @@ This software is released under a GNU GPL v2 License.
 ## Installation:
 
 ### Dependencies:
+- cmake
 - GDK Pixbuf
 - LibNotify
 - GLIB
