@@ -1,9 +1,9 @@
-# Batmon
+# Battmon
 ### A lightweight battery monitor in C++.
 
 by Manuel Olguin (a.k.a. Arachnid92)
 
-Batmon is a battery monitor for people like me who use minimalistic tiling WMs
+Battmon is a battery monitor for people like me who use minimalistic tiling WMs
 or who simply don't want to clutter down their system tray with unnecessary icons.
 The program runs in the background, polling the battery state at /sys/class/power_supply/ 
 and using desktop notifications to notify the user at user-defined intervals 
