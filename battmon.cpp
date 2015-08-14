@@ -215,6 +215,23 @@ void checkBattery ()
         notify_uninit ();
 
     }
+    else if ( cstat != pstat )
+        // notify charging/discharging state
+    {
+        if ( debug )
+            std::cerr << "\x1b[01mChange in charging state: \x1b[00m" << cstat << "\n";
+
+        std::string battext ( cstat + " " + std::to_string ( ccap ) + "%" );
+
+        // Notification time
+        notify_init ( "battmon" );
+        NotifyNotification *Batt;
+        Batt = notify_notification_new ( cstat.c_str (), battext.c_str (), BATT_CHAR );
+        notify_notification_show ( Batt, NULL );
+        g_object_unref ( G_OBJECT( Batt ) );
+        notify_uninit ();
+
+    }
         // else, notify every delta%
     else if ( ccap % delta == 0 )
     {
