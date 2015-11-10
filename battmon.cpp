@@ -24,7 +24,7 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/filesystem.hpp>
 
-#define VERSION     "0.5beta1"
+#define VERSION     "0.5beta2"
 
 
 void checkBattery (); // poll function
@@ -67,8 +67,10 @@ int main ( const int argc, const char *argv[] )
     pOpt::options_description desc ( odes + "\n\nOptions" );
     desc.add_options ()
             ( "help,h", "Show this help message." )
-            ( "interval,i", pOpt::value < int > ( &delay )->default_value ( 1 ),
-              "Polling interval in s (default = 1s)." )
+            (
+                    "interval,i", pOpt::value < int > ( &delay )->default_value ( 5 ),
+                    "Polling interval in s (default = 5s)."
+            )
             ( "delta,d", pOpt::value < int > ( &delta )->default_value ( 10 ),
               "Minimum change in battery percent before notifying (Default = 10)." )
             ( "low,l", pOpt::value < int > ( &low )->default_value ( 15 ),
