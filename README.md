@@ -64,7 +64,10 @@ battmon --interval 2 --delta 3 --low 10 --critical 3 --dark
 ```
 
 ### TODO
+
 [x] Add support for BAT1
+
 [ ] Add support for custom battery (if not in the proper path)
+
 [ ] Fix it for dual battery system 
 
