@@ -24,7 +24,7 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/filesystem.hpp>
 
-#define VERSION     "0.5beta2"
+#define VERSION     "0.5beta3"
 
 
 void checkBattery (); // poll function
@@ -39,7 +39,10 @@ int ccap;   // current batt capacity percent
 int pcap;   // previous batt capacity percent
 std::string cstat; // current batt status
 std::string pstat; // previous batt status
+std::string capacityfilepath; // path of the file that has capacity 
+std::string statusfilepath; // path of the file that has statistics
 
+int battery; // flag to identify battery
 bool debug;
 bool bat;
 bool cont; // continuous mode or poll once mode
@@ -132,38 +135,53 @@ int main ( const int argc, const char *argv[] )
 
 void checkBattery ()
 {
-
-    // check if battery is present
-    if ( !boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) )
+    if (!boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) && !boost::filesystem::exists ( "/sys/class/power_supply/BAT1" ) )
     {
-
         if ( debug )
-            std::cerr << "\x1b[01mNo battery.\x1b[00m\n";
-
+            std::cerr << "\x1b[01mNo BAT0 and No BAT1.\x1b[00m\n";
         if ( bat )
             // if there previously was a battery, notify that it has been removed
         {
             notify_init ( "battmon" );
             NotifyNotification *Batt;
-            Batt = notify_notification_new ( "No Battery", "No battery present.", BATT_CRIT );
+            Batt = notify_notification_new ( "No Battery!", "No battery present!", BATT_CRIT );
             notify_notification_show ( Batt, NULL );
             g_object_unref ( G_OBJECT( Batt ) );
             notify_uninit ();
         }
-
-
         bat = false;
         return;
     }
 
+    // This basically sets battery variable to a particular value depending upon which one is used.
+    // It can be called as a bug/feature but if you have two batteries only battery 1 will be selected
+    // next commit will probably fix this!
+    
+    boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) ? battery = 0 : battery = -1;
+    boost::filesystem::exists ( "/sys/class/power_supply/BAT1" ) ? battery = 1 : battery = -1;
+    
+    if ( battery == 0 ) 
+    {
+        capacityfilepath = "/sys/class/power_supply/BAT0/capacity";
+        statusfilepath = "/sys/class/power_supply/BAT0/status";
+    }
+    else if ( battery == 1 ) 
+    {
+        capacityfilepath = "/sys/class/power_supply/BAT1/capacity";
+        statusfilepath = "/sys/class/power_supply/BAT1/status";
+    }
+    else 
+    {
+        std::cerr << "\x1b[01mNo BAT0 or BAT1.\x1b[00m\n";
+    }
     bat = true;
 
     if ( debug )
         std::cerr << "Polling.\n";
-
+    
     // read information from battery capacity and status files
-    std::ifstream capfile ( "/sys/class/power_supply/BAT0/capacity" );
-    std::ifstream statfile ( "/sys/class/power_supply/BAT0/status" );
+    std::ifstream capfile ( capacityfilepath );
+    std::ifstream statfile ( statusfilepath );
     capfile >> ccap;
     statfile >> cstat;
 
