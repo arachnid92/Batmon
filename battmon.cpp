@@ -24,7 +24,7 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/filesystem.hpp>
 
-#define VERSION     "0.5beta2"
+#define VERSION     "0.5beta3"
 
 
 void checkBattery (); // poll function
@@ -156,9 +156,10 @@ void checkBattery ()
     // This basically sets battery variable to a particular value depending upon which one is used.
     // It can be called as a bug/feature but if you have two batteries only battery 1 will be selected
     // next commit will probably fix this!
-    //
+    
     boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) ? battery = 0 : battery = -1;
     boost::filesystem::exists ( "/sys/class/power_supply/BAT1" ) ? battery = 1 : battery = -1;
+    
     if ( battery == 0 ) 
     {
         capacityfilepath = "/sys/class/power_supply/BAT0/capacity";
