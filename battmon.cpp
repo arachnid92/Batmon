@@ -82,8 +82,7 @@ int main ( const int argc, const char *argv[] )
               "Critical battery threshold in percent (default = 5%)." )
             ( "run-once,r", "Only poll battery state once and exit." )
             ( "dark,k", "Use dark icons instead of the default light ones." )
-            ( "debug", "Print debug comments to STDERR." )
-            ( "bat", "Select battery" );
+            ( "debug", "Print debug comments to STDERR." );
 
     pOpt::variables_map vm;
     pOpt::store ( pOpt::parse_command_line ( argc, argv, desc ), vm );
@@ -156,7 +155,7 @@ void checkBattery ()
 
     // This basically sets battery variable to a particular value depending upon which one is used.
     // It can be called as a bug/feature but if you have two batteries only battery 1 will be selected
-    // next commit will probably fix this
+    // next commit will probably fix this!
     //
     boost::filesystem::exists ( "/sys/class/power_supply/BAT0" ) ? battery = 0 : battery = -1;
     boost::filesystem::exists ( "/sys/class/power_supply/BAT1" ) ? battery = 1 : battery = -1;
